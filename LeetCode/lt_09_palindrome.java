@@ -1,30 +1,35 @@
-
-
 public class lt_09_palindrome {
 
-    public static boolean isPalindrome(int x) {
-        // 負數不是回文；數字尾數為 0 也不是（除非是 0 本身）
-        if (x < 0 || (x % 10 == 0 && x != 0)) return false;
+    // 題目 9: Palindrome Number
+    static class Solution {
+        public boolean isPalindrome(int x) {
+            if (x < 0) return false;
 
-        int reversed = 0;
+            int original = x;
+            int reversed = 0;
 
-        // 只反轉一半就能判斷
-        while (x > reversed) {
-            int digit = x % 10;
-            reversed = reversed * 10 + digit;
-            x /= 10;
+            while (x != 0) {
+                int digit = x % 10;
+
+                // 防止溢位（雖然本題數值範圍安全）
+                if (reversed > (Integer.MAX_VALUE - digit) / 10) return false;
+
+                reversed = reversed * 10 + digit;
+                x /= 10;
+            }
+
+            return original == reversed;
         }
-
-        // 偶數位：x == reversed；奇數位：x == reversed/10（忽略中間數字）
-        return x == reversed || x == reversed / 10;
     }
 
-    // 🧪 測試用 main 方法
+    // ✅ 主程式測試
     public static void main(String[] args) {
-        System.out.println(isPalindrome(121));      // true
-        System.out.println(isPalindrome(-121));     // false
-        System.out.println(isPalindrome(10));       // false
-        System.out.println(isPalindrome(12321));    // true
-        System.out.println(isPalindrome(0));        // true
+        Solution sol = new Solution();
+
+        int[] testCases = {121, -121, 10, 0, 12321};
+        for (int x : testCases) {
+            boolean result = sol.isPalindrome(x);
+            System.out.println("Input: " + x + " → Is Palindrome? " + result);
+        }
     }
 }

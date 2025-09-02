@@ -1,5 +1,3 @@
-
-
 public class lt_02_addtwonumbers {
 
     // ✅ Linked List 節點定義

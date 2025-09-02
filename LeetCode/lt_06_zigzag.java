@@ -1,47 +1,43 @@
-
-
 public class lt_06_zigzag {
 
-    public static String convert(String s, int numRows) {
-        if (numRows == 1 || s.length() <= numRows) return s;
+    // 題目6: Zigzag Conversion
+    static class Solution {
+        public String convert(String s, int numRows) {
+            // ✅ 特殊情況：直接回傳原字串
+            if (numRows == 1 || s.length() <= numRows) return s;
 
-        StringBuilder[] rows = new StringBuilder[numRows];
-        for (int i = 0; i < numRows; i++) {
-            rows[i] = new StringBuilder();
-        }
-
-        int currRow = 0;
-        boolean goingDown = false;
-
-        for (char c : s.toCharArray()) {
-            rows[currRow].append(c);
-
-            if (currRow == 0 || currRow == numRows - 1) {
-                goingDown = !goingDown;
+            // ✅ 每一行建立一個 StringBuilder
+            StringBuilder[] rows = new StringBuilder[numRows];
+            for (int i = 0; i < numRows; i++) {
+                rows[i] = new StringBuilder();
             }
 
-            currRow += goingDown ? 1 : -1;
-        }
+            int currentRow = 0;
+            boolean goingDown = false;
 
-        StringBuilder result = new StringBuilder();
-        for (StringBuilder row : rows) {
-            result.append(row);
-        }
+            for (char c : s.toCharArray()) {
+                rows[currentRow].append(c);
+                if (currentRow == 0 || currentRow == numRows - 1) {
+                    goingDown = !goingDown;
+                }
+                currentRow += goingDown ? 1 : -1;
+            }
 
-        return result.toString();
+            // ✅ 組合所有列的內容
+            StringBuilder result = new StringBuilder();
+            for (StringBuilder row : rows) {
+                result.append(row);
+            }
+
+            return result.toString();
+        }
     }
 
-    // 🧪 測試用 main 方法
+    // 🧪 主程式測試（可選）
     public static void main(String[] args) {
-        String s1 = "PAYPALISHIRING";
-        int rows1 = 3;
-        System.out.println("Zigzag Result 1: " + convert(s1, rows1)); // PAHNAPLSIIGYIR
-
-        int rows2 = 4;
-        System.out.println("Zigzag Result 2: " + convert(s1, rows2)); // PINALSIGYAHRPI
-
-        String s2 = "A";
-        int rows3 = 1;
-        System.out.println("Zigzag Result 3: " + convert(s2, rows3)); // A
+        Solution sol = new Solution();
+        System.out.println(sol.convert("PAYPALISHIRING", 3)); // 輸出: PAHNAPLSIIGYIR
+        System.out.println(sol.convert("PAYPALISHIRING", 4)); // 輸出: PINALSIGYAHRPI
+        System.out.println(sol.convert("A", 1));               // 輸出: A
     }
 }
