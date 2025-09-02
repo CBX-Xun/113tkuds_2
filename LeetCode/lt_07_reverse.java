@@ -1,6 +1,6 @@
-package LeetCode;
 
-public class li_07_reverse {
+
+public class lt_07_reverse {
     public static int reverse(int x) {
         int result = 0;
 

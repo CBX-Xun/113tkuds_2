@@ -1,4 +1,4 @@
-package LeetCode;
+
 
 public class lt_05_longestpalindromic {
 
